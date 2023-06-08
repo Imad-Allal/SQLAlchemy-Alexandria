@@ -1,4 +1,4 @@
-import sqlite3
+import sqlite3 
 from sqlite3 import Error
 
 
@@ -16,4 +16,4 @@ def create_connection(db_file):
 
 
 if __name__ == '__main__':
-    create_connection(r"./db/Alexandria.db")
+    create_connection(r"./db/Alexandria.db") #At first, the db directory is empty, after executing this program we create a DB file inside of it
