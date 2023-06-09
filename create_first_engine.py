@@ -7,6 +7,8 @@ from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import relationship
+import time
+
 
 class Base(DeclarativeBase):
     pass
@@ -30,8 +32,8 @@ class Category(Base):
     name: Mapped[str] = mapped_column(String(30))
     def __repr__(self) -> str:
         return f"Category(id={self.id!r}, title={self.name!r})"
-
-engine = create_engine("sqlite:///./db/Alexandria.db", echo=True)
+unix_timestamp = int(time.time())
+engine = create_engine(f"sqlite:///./db/Alexandria{unix_timestamp}.db", echo=True)
 
 Base.metadata.create_all(bind = engine)
 
