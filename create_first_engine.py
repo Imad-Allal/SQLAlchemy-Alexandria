@@ -5,6 +5,9 @@ from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
 from sqlalchemy.orm import Session
+from sqlalchemy import update
+from sqlalchemy import delete
+
 
 class Base(DeclarativeBase):
     pass
@@ -35,14 +38,14 @@ with Session(engine) as session:
     #     id = 12134,
     #     title = "La bâtarde d'instanbul",
     #     author = "Elif Shafak",
-    #     description = "Ella Rubinstein a en apparence tout pour être heureuse",
+    #     description = "description 2",
     #     year_published = 2006,
     # )
     # b3 = Book(
     #     id = 39281,
     #     title = "The Island of missing tres",
     #     author = "Elif Shafak",
-    #     description = "Ella Rubinstein a en apparence tout pour être heureuse",
+    #     description = "description 3",
     #     year_published = 2009,
     # )
     # b4 = Book(
@@ -56,7 +59,7 @@ with Session(engine) as session:
     #     id = 34532,
     #     title = "La quête du Joyau",
     #     author = "hams ed Dîn Tabrîzî",
-    #     description = "Ella Rubinstein a en apparence tout pour être heureuse",
+    #     description = "description 5",
     #     year_published = 2001,
     # )
     # session.add_all([b1, b2, b3, b4, b5])
@@ -69,3 +72,7 @@ print(results)
 elif_shafak = session.query(Book).filter(Book.author == "Elif Shafak") #Retrieving all books written by a specific author
 for book in elif_shafak:
     print(book)
+
+book = session.query(Book).filter(Book.id == 39281).first()
+book.year_published = 2000
+session.commit()
