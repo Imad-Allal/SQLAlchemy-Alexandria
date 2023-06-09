@@ -4,7 +4,7 @@ from sqlalchemy import Integer
 from sqlalchemy.orm import DeclarativeBase
 from sqlalchemy.orm import Mapped
 from sqlalchemy.orm import mapped_column
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import Session
 
 class Base(DeclarativeBase):
     pass
@@ -23,8 +23,49 @@ engine = create_engine("sqlite:///./db/Alexandria.db", echo=True)
 
 Base.metadata.create_all(bind = engine)
 
-Session = sessionmaker(bind = engine)
-session = Session()
+with Session(engine) as session:
+    # b1 = Book(
+    #     id = 92842,
+    #     title="Soufi, mon amour",
+    #     author="Elif Shafak",
+    #     description="Ella Rubinstein a en apparence tout pour être heureuse",
+    #     year_published = 2009,
+    # )
+    # b2 = Book(
+    #     id = 12134,
+    #     title = "La bâtarde d'instanbul",
+    #     author = "Elif Shafak",
+    #     description = "Ella Rubinstein a en apparence tout pour être heureuse",
+    #     year_published = 2006,
+    # )
+    # b3 = Book(
+    #     id = 39281,
+    #     title = "The Island of missing tres",
+    #     author = "Elif Shafak",
+    #     description = "Ella Rubinstein a en apparence tout pour être heureuse",
+    #     year_published = 2009,
+    # )
+    # b4 = Book(
+    #     id = 12192,
+    #     title = "Goobye to shy",
+    #     author = "Leil Lowndes",
+    #     description = "Not being shy anymore",
+    #     year_published = 2009,
+    # )
+    # b5 = Book(
+    #     id = 34532,
+    #     title = "La quête du Joyau",
+    #     author = "hams ed Dîn Tabrîzî",
+    #     description = "Ella Rubinstein a en apparence tout pour être heureuse",
+    #     year_published = 2001,
+    # )
+    # session.add_all([b1, b2, b3, b4, b5])
+    # session.commit()
+    pass #Uncomment this if the database doesn't exist yet
 
-book = Book(12132, "Soufi, mon amour", "Elif Shafak", "Ella Rubinstein a en apparence tout pour être heureuse", 2016)
-session.add(book)
+results = session.query(Book).all() #Retrieving all books
+print(results)
+
+elif_shafak = session.query(Book).filter(Book.author == "Elif Shafak") #Retrieving all books written by a specific author
+for book in elif_shafak:
+    print(book)
