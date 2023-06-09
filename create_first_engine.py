@@ -76,3 +76,8 @@ for book in elif_shafak:
 book = session.query(Book).filter(Book.id == 39281).first()
 book.year_published = 2000
 session.commit()
+
+
+book = session.query(Book).filter(Book.id == 12192)
+book.delete()
+session.commit()
